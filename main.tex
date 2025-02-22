@@ -1,0 +1,70 @@
+\section{Min-max normalization}
+\begin{equation}
+  Y = \frac{X-\text{min}(X)}{\text{max}(X)-\text{min}(X)}.
+\end{equation}
+
+\section{Cross-entropy}
+\begin{equation}
+  H(p,q) = -\mathbb{E}_p[\log q],
+\end{equation}
+where $\mathbb{E}_p$ is the expected value operator with respect to
+the distribution $p$.
+
+For discrete probability distributions $p$ and $q$ with the same support $\mathcal{X}$,
+\begin{equation}
+  H(p,q) = -\sum_{x\in\mathcal{X}}p(x)\log q(x).
+\end{equation}
+
+\section{Accuracy (Acc)}
+The evaluation metric Accuracy (Acc) evaluates the performance of a
+classification model. Specifically, it measures the probability the model
+makes correct predictions, and it is numerically defined as
+\begin{equation}
+  \text{Acc} = \frac{CoPr}{ToPr} = \frac{}{},
+\end{equation}
+where, the number of correct predictions
+\begin{equation}
+  \text{CoPr} = \text{TP} + \text{TN}
+\end{equation}
+and the total number of predictions
+\begin{equation}
+  \text{ToPr} = \text{TP} + \text{FP} + \text{TN} + \text{FN},
+\end{equation}
+where TP is the number of true positives, TN is the number of true
+negatives, FP is the number of false positives, and FN is the number
+of false negatives.
+
+\section{Sensitivity (Se) or recall or TPR}
+Sensitivity, also known as the True Positive Rate (TPR) and as recall,
+reveals how well a model can identify (classify) positive
+instances. It is defined as
+\begin{equation}
+  \text{Se} = \frac{\text{TP}}{\text{TP} + \text{FN}}.
+\end{equation}
+
+\section{Specifity}
+Specifity measures how well a model can correctly identify (classify)
+negative instances, that is
+\begin{equation}
+  \text{Sp} = \frac{\text{TN}}{\text{TN} + \text{FP}}.
+\end{equation}
+
+\section{Precision}
+This classification metric measures the proportion of correctly predicted positive instances out of all instances predicted as positive, i.e., it is computed by
+\begin{equation}
+  \text{Pr} = \frac{\text{TP}}{\text{TP} + \text{FP}}.
+\end{equation}
+
+\section{F1-score}
+Classification metric that computes the harmonic mean of Pr and Se:
+\begin{equation}
+  \text{F1-score} = \frac{2\text{Pr}\text{Se}}{\text{Pr}+\text{Se}}.
+\end{equation}
+
+\section{Confusion matrix}
+A table that summarizes the performance of a classification model by showing
+\begin{table}{ccc}
+  & Predicted Positive & Predicted Negative \\
+  Actual Positive & TP & FN \\
+  Actual Negative & FP & TN
+\end{table}
