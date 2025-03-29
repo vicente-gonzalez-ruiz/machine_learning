@@ -34,13 +34,14 @@ where TP is the number of true positives, TN is the number of true
 negatives, FP is the number of false positives, and FN is the number
 of false negatives.
 
-\section{Sensitivity (Se) or recall or TPR}
+\section{Sensitivity (Se), recall or TPR}
 Sensitivity, also known as the True Positive Rate (TPR) and as recall,
-reveals how well a model can identify (classify) positive
+reveals how well a model caEn otras palabras, de todas las veces que la respuesta era "sí", ¿cuántas veces el modelo lo detectó?En otras palabras, de todas las veces que la respuesta era "sí", ¿cuántas veces el modelo lo detectó?n identify (classify) positive
 instances. It is defined as
 \begin{equation}
   \text{Se} = \frac{\text{TP}}{\text{TP} + \text{FN}}.
 \end{equation}
+In other words, out of all the times the answer was "yes," how many times was the model wrong?
 
 \section{Specifity}
 Specifity measures how well a model can correctly identify (classify)
@@ -54,12 +55,14 @@ This classification metric measures the proportion of correctly predicted positi
 \begin{equation}
   \text{Pr} = \frac{\text{TP}}{\text{TP} + \text{FP}}.
 \end{equation}
+In other words, of all the times the model said "yes," how many times was it right?
 
 \section{F1-score}
 Classification metric that computes the harmonic mean of Pr and Se:
 \begin{equation}
   \text{F1-score} = \frac{2\text{Pr}\text{Se}}{\text{Pr}+\text{Se}}.
 \end{equation}
+High F1-scores are correlated with a good equilibrium between precision and recall.
 
 \section{Confusion matrix}
 A table that summarizes the performance of a classification model by showing
