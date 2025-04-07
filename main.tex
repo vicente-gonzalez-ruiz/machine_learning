@@ -16,11 +16,11 @@ For discrete probability distributions $p$ and $q$ with the same support $\mathc
 \end{equation}
 
 \section{Accuracy (Acc)}
-The evaluation metric Accuracy (Acc) evaluates the performance of a
+The evaluation metric Accuracy (Acc, \emph{exactitud} in Spanish) evaluates the performance of a
 classification model. Specifically, it measures the probability the model
 makes correct predictions, and it is numerically defined as
 \begin{equation}
-  \text{Acc} = \frac{CoPr}{ToPr} = \frac{}{},
+  \text{Acc} = \frac{CoPr}{ToPr},
 \end{equation}
 where, the number of correct predictions
 \begin{equation}
@@ -33,6 +33,12 @@ and the total number of predictions
 where TP is the number of true positives, TN is the number of true
 negatives, FP is the number of false positives, and FN is the number
 of false negatives.
+
+\section{Recall}
+(\emph{recuperación} in Spanish)
+\begin{equation}
+  \text{R} = \frac{\text{TP}}{\text{TP} + \text{FN}}
+\end{equation}
 
 \section{Sensitivity (Se), recall or TPR}
 Sensitivity, also known as the True Positive Rate (TPR) and as recall,
@@ -51,7 +57,7 @@ negative instances, that is
 \end{equation}
 
 \section{Precision}
-This classification metric measures the proportion of correctly predicted positive instances out of all instances predicted as positive, i.e., it is computed by
+This classification metric (\emph{precisión} in Spanish) measures the proportion of correctly predicted positive instances out of all instances predicted as positive, i.e., it is computed by
 \begin{equation}
   \text{Pr} = \frac{\text{TP}}{\text{TP} + \text{FP}}.
 \end{equation}
@@ -71,6 +77,12 @@ A table that summarizes the performance of a classification model by showing
   Actual Positive & TP & FN \\
   Actual Negative & FP & TN
 \end{table}
+
+\section{}
+curva precisión-recuperación
+\begin{equation}
+  \text{AUC-PRC} = \sum_{i=1}^{t-1}(\text{R}_{i+1}-\text{R}_i)\frac{\text{P}_i+\text{P}_{i+1}}{2}
+\end{equation}
 
 \section{Epoch}
 An epoch refers to one complete pass through the entire training dataset.
