@@ -115,3 +115,84 @@ To prevent overfitting, early stopping fialized the training when the
 model's performance on the validation dataset starts to degrade.
 
 \section{Batch normalization}
+Batch normalization normalizes the activations of intermediate layers
+within a mini-batch of data (only) during the training process. This
+means it adjusts the mean and variance of the layer's
+inputs. Algorithm:
+\begin{enumerate}
+\item Calculate batch mean $\mu_B$ and variance $\sigma^2_B$ for the input batch $B$.
+\item Normalize the neuron activations using
+  \begin{equation}
+    \hat{x}_i = \frac{x_i-\mu_B}{\sqrt{\sigma^2_B+\epsilon}},
+  \end{equation}
+  where $x_i$ is the original  activation value, $\epsilon$ is a small
+  constant  to  prevent  division  by zero,  and  $\hat{x}_i$  is  the
+  normalized activation value.
+\item Scale and shift the normalized activations with
+  \begin{equation}
+    y_i = \gamma\hat{x}_i+\beta,
+  \end{equation}
+  where $\gamma$ is a (learnable parameter) scaling factor, and
+  $\beta$ (another learnable parameter) shifts the normalized
+  activation.
+\end{enumerate}
+
+Batch normalization makes the learning process more stable and less
+dependent on the initial weights (reduces internal covariate shift),
+speed up the training process by allowing higher learning rates,
+reduces the probability of vanishing and exploding gradients, acts as
+a regularizer (reducing the need for other regularization techniques
+like dropout), and reduces dependence on initialization (weights)
+values.
+
+\section{Cross-validation}
+
+\section{Five-fold cross-validation}
+
+\section{A word about convolution in DL libraries}
+The true convolution of a signal $x$ and a kernel $w$ is defined as
+\begin{equation}
+  (x*w)[i] = \sum_k x[k]w[i-k].
+\end{equation}
+Notice that the kernel is \emph{flipped} (reversed). CNNs, however,
+compute the cross-correlation, defined as:
+\begin{equation}
+  (x\star y)[i] = \sum_k x[i+k}w[k],
+\end{equation}
+of equivalently (depending on indexing):
+\begin{equation}
+  (x\star y)[i] = \sum_k x[k}w[i+k],
+\end{equation}
+and therefore, no \emph{flipping} of the kernel happens. In practice,
+deep learning libraries (like PyTorch and Tensorflow) what really
+compute as a \emph{convolution} is actually a
+\emph{cross-correlation}.
+
+\section{Conv1d}
+For only one channel, and assuming no padding (``valid'' convolution), it is defined as
+\begin{equation}
+  y[i] = \sum_{k=0}^{K-1} w[k]x[is+k]+b
+\end{equation}
+where $x\in\mathcal{R}^L$ is the input digital 1D signal of length
+$L$, $w\in\mathbcal{R}^K$ is the kernel (or filter) of length $K$,
+$b\in\mathcal{R}$ is the bias, $n\in\mathcal{N}$ is the stride (how
+much the filter moves at each step). if the signal $x$ is padded
+(extended) with zeros at the boundaries, it is said that we are
+computing the``same'' convolution.
+
+When $x\in\mathcal{R}^{C_{\text{in}}L}$ has more than one channel and
+a different kernel is used for each channel, then
+\begin{equation}
+  y[i] = \sum_{c=0}^{C_{\text{in}}-1}\sum_{k=0}^{K-1} w[c,k]x[c,is+k]+b
+\end{equation}
+
+Finally, each input channel can be convolved with $C_{\text{out}}$ kernels, generating
+\begin{equation}
+  y[m,i] = \sum_{c=0}^{C_{\text{in}}-1}\sum_{k=0}^{K-1} w[m,c,k]x[c,is+k]+b[m]
+\end{equation}
+
+\section{CNN}
+Each convolutional layer learns different patterns and features at
+various abstraction levels. The initial layers capture low-level features such
+as edges and gradients, whereas the deeper layers capture more complex and
+abstract features.
