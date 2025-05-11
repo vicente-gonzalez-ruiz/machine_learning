@@ -4,6 +4,11 @@
 \end{equation}
 
 \section{Cross-entropy}
+Cross-entropy is a way to measure the difference between two probability distributions — usually between the true labels and a model’s predicted probabilities.
+
+In ML (especially in classification tasks), cross-entropy is commonly used as a loss function to quantify how well the predicted probability distribution matches the actual distribution (the true class labels).
+
+It can be expressed as
 \begin{equation}
   H(p,q) = -\mathbb{E}_p[\log q],
 \end{equation}
@@ -12,8 +17,15 @@ the distribution $p$.
 
 For discrete probability distributions $p$ and $q$ with the same support $\mathcal{X}$,
 \begin{equation}
-  H(p,q) = -\sum_{x\in\mathcal{X}}p(x)\log q(x).
+  H(p,q) = -\sum_{x\in\mathcal{X}}p(x)\log q(x),
 \end{equation}
+where $p(x)$ is the true probability of the label/class $x$ and $q(x)$ is the model predict probability for $x$. When there are only two classes/labels (binary classification), this equation boils down to
+\begin{equation}
+  H(p,q) = -(p\log q + (1-p)\log(1-q)),
+\end{equation}
+where $p$ is 0 or 1, and $p$ is the probability of the prediction for label 1.
+
+In classification tasks we usually try to minimize the cross-entropy.
 
 \section{Accuracy (Acc)}
 The evaluation metric Accuracy (Acc, \emph{exactitud} in Spanish) evaluates the performance of a
@@ -148,6 +160,19 @@ values.
 \section{Cross-validation}
 
 \section{Five-fold cross-validation}
+Five-fold cross-validation is a common technique used to evaluate the performance of a machine learning model on a limited dataset and to get a more robust estimate of its generalization ability (how well it will perform on unseen data). Here's how it works:
+
+\begin{enumerate}
+\item Data Splitting: The original dataset is divided into five roughly equal-sized parts or "folds."
+
+\item Training and Evaluation (Five Iterations): The experiment is run five times (the "five-fold"). In each iteration:
+  \begin{enumerate}
+  \item One fold is held out as the test set (or validation set). This is the data the model will be evaluated on in this particular run.
+  \item The remaining four folds are used to train the model. The model learns from this larger portion of the data.
+  \item The trained model is then evaluated on the held-out test fold, and the chosen metrics are recorded.
+  \end{enumerate}
+\item Averaging the Results: After all five iterations are complete, you will have five sets of metric scores (one from each test fold). The final reported metric in the section is the average of these five scores.
+\end{enumerate}
 
 \section{A word about convolution in DL libraries}
 The true convolution of a signal $x$ and a kernel $w$ is defined as
@@ -196,3 +221,45 @@ Each convolutional layer learns different patterns and features at
 various abstraction levels. The initial layers capture low-level features such
 as edges and gradients, whereas the deeper layers capture more complex and
 abstract features.
+
+\section{Residual network}
+For example Resnet \cite{}.
+
+\section{Entropy}
+Entropy is a measure of the uncertainty, randomness, or disorder
+within a set of data or a probability distribution $X$, that can take
+$N$ possible values $\{x_1,x_2,\cdots,x_n\}$. In the context of
+information theory, it measures the average number of bits needed to
+encode an event from a probability distribution. Entropy can be
+computed as
+\begin{equation}
+  H(X) = -\sum_{i=1}^Mp(x_i)\log_b(p(x_i))
+\end{equation}
+where $p(x_i)$ is the probability of the $i$-th outcome, and $b$
+determines the unit of entropy (``bits'' for $b=2$, ``nats'' for
+$b=e$, and ``dits'' or ``hartleys'' for $b=10$).
+
+\section{Cross-entropy}
+Cross-entropy is a loss function to measure the difference between two
+probability distributions for a given random variable or set of
+events. In the context of classification models, it quantifies the
+dissimilarity between the predicted probabilities and the true
+labels. The lower, the better. The logarithmic nature of the
+cross-entropy penalizes confident (small cross-entropy) but incorrect
+predictions.
+
+\subsection{Binary cross-entropy (only two classes)}
+\begin{equation}
+  L = -y\log(p)-(1-y)\log(1-p)
+\end{equation}
+where $y$ is the true label (0 or 1), and $p$ is the predicted probability of the positive class (class 1).
+
+\subsection{Categorical cross-entropy (for multiple classes)}
+\begin{equation}
+  L = -\sum_{i=1}^M y_i\log(p_i)
+\end{equation}
+where $M$ is the number of classes, $y_i$ is the binary indicator (0 or 1) of whether the $i$-th class is the correct label for the data point, and $p_i$ is the predicted probability of the data point belonging to the $i$-th class.
+
+\section{One-hot encoding}
+
+
