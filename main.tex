@@ -73,7 +73,7 @@ Recall is a measure of "has your model predicted every time that it
 should have predicted?" It indicates any predictions that it should
 not have missed if the model is missing.
 
-\section{Sensitivity (Se), recall or TPR}
+\section{Sensitivity (Se), recall or TPR (True Positive Rate)}
 Sensitivity, also known as the True Positive Rate (TPR) and as recall,
 reveals how well a model caEn otras palabras, de todas las veces que la respuesta era "sí", ¿cuántas veces el modelo lo detectó?En otras palabras, de todas las veces que la respuesta era "sí", ¿cuántas veces el modelo lo detectó?n identify (classify) positive
 instances. It is defined as
@@ -145,6 +145,25 @@ curva precisión-recuperación
 \begin{equation}
   \text{AUC-PRC} = \sum_{i=1}^{t-1}(\text{R}_{i+1}-\text{R}_i)\frac{\text{P}_i+\text{P}_{i+1}}{2}
 \end{equation}
+
+\section{False Positive Rate (FPR)}
+This is the proportion of actual negative instances that are incorrectly identified as positive.
+\begin{equation}
+  \text{FPR} = \frac{\text{FP}}{\text{FP}+\text{TN}}
+\end{equation}
+
+\section{The ROC curve}
+A binary classification model often outputs a probability or score for
+each instance, indicating its likelihood of belonging to the positive
+class. To classify an instance as positive or negative, a threshold is
+applied to this probability. For example, if the probability is above
+0.5, it might be classified as positive; otherwise, negative. The ROC
+curve is a graphical plot that illustrates the diagnostic ability of a
+binary classifier as its discrimination threshold is varied. It plots
+two metrics against each other: TPR (y-axis) vs FPR (x-axis).
+
+\section{(Area Under the receiver operating Characteristic (AUC)}
+It is a performance metric used primarily for evaluating the effectiveness of binary classification models.
 
 \section{Epoch}
 An epoch refers to one complete pass through the entire training dataset.
@@ -312,4 +331,110 @@ where $M$ is the number of classes, $y_i$ is the binary indicator (0 or 1) of wh
 
 \section{One-hot encoding}
 
+\section{Online learning}
 
+\section{Batch Gradient Descent (BGD)}
+Uses the entire dataset to compute the gradient and update parameters
+once per epoch. Provides a very accurate estimate of the true
+gradient, leading to a smooth convergence path. Extremely
+computationally expensive and memory-intensive for large datasets.
+
+\section{Stochastic Gradient Descent (SGD)}
+Updates parameters after processing each individual data point. Very
+fast updates, can help escape local minima due to the inherent "noise"
+in the gradient estimates. Highly noisy updates, leading to a jagged
+and potentially unstable convergence path. The gradient from a single
+example might not be representative of the overall dataset.
+
+\section{Mini-Batch Gradient Descent (MBGD}
+Instead of updating a model's parameters (like weights and biases)
+after processing the entire training dataset (as in BGD) or after
+processing a single data point (as in SGD), mini-batch training
+involves:
+\begin{enumerate}
+\item Dividing the training dataset into smaller, fixed-size subsets called "mini-batches."
+\item For each mini-batch, calculating the gradient of the loss function with respect to the model's parameters.
+\item Updating the model's parameters using this calculated gradient.
+\item Repeating this process for all mini-batches in an epoch (one full pass through the entire dataset).
+\end{enumerate}
+MBGD is more computational efficient than BGD and have a metter convergence than SGD. Moreover, the inherent stochasticity (noise) introduced by using mini-batches can act as a form of regularization, helping the model to avoid getting stuck in sharp local minimaq and potentially leading to better generalization to unseen data.
+
+\section{RNN}
+
+\subsection{The Vanishing Gradient Problem in RNN}
+Standard RNNs are designed to process sequential data (like text,
+speech, time series) by passing information from one step in the
+sequence to the next. However, during training, when the error signal
+(gradient) is propagated back through many time steps, it can become
+extremely small (vanish). This makes it difficult for the network to
+learn long-term dependencies – meaning, it struggles to remember
+information from much earlier in the sequence. For example, in a long
+sentence, a traditional RNN might "forget" the subject by the time it
+needs to process the verb.
+
+
+\section{Gated Recurrent Unit (GRU)}
+It's a type of recurrent neural network (RNN) that was introduced to
+address some of the limitations of traditional RNNs, particularly the
+vanishing gradient problem. GRUs, along with their more complex
+counterparts, LSTMs (Long Short-Term Memory networks), introduce
+"gates" to control the flow of information. These gates act like
+intelligent filters that decide what information to keep, what to
+forget, and what to pass on to the next step.
+
+A GRU has two main gates:
+\begin{enumerate}
+\item Update Gate ($z_t$​): This gate determines how much of the past
+  information (from the previous hidden state) should be carried
+  forward to the current hidden state, and how much of the new
+  candidate hidden state (computed from the current input) should be
+  incorporated. Think of it as a "memory update" gate. A value close
+  to 1 means "keep a lot of the old information" or "add a lot of the
+  new information." A value close to 0 means "forget the old
+  information" or "don't add much of the new information."
+\item Reset Gate ($r_t$​): This gate decides how much of the previous
+  hidden state should be "forgotten" or "reset" before computing the
+  new candidate hidden state. It essentially allows the GRU to discard
+  irrelevant past information when processing new input. If the reset
+  gate outputs a value close to 0, it effectively "resets" or ignores
+  the previous hidden state when calculating the current potential
+  hidden state.
+\end{enumerate}
+
+GRUs are simpler than LSTMs because they combine the forget and input
+gates into a single "update" gate and don't have a separate cell
+state. They rely solely on the hidden state to transfer
+information. This means they have fewer parameters.
+
+\section{Knowledge Graph (KG)}
+A KG is a structured representation of knowledge that captures the
+relationships between different entities (like people, places, events,
+concepts, or objects) or nodes. Examples of nodes are: "Albert
+Einstein," "E = mc²," "Relativity Theory," "Germany," "Nobel Prize."
+The edges (relationships) are the connections between nodes,
+describing how entities are related. Edges are typically directed and
+labeled. "Albert Einstein" \textbf{was born in} "Germany," "Albert
+Einstein" \textbf{developed} "Relativity Theory," "Albert Einstein"
+\textbf{received} "Nobel Prize." Finally, we have labels (properties),
+that is additional information or attributes associated with nodes or
+edges. Example: The "Nobel Prize" node might have a property "Year: 1921".
+
+\section{Graph Neural Network (GNN)}
+A GNN is a specialized type of artificial neural network designed to
+operate directly on graph-structured data. Unlike traditional neural
+networks (like CNNs for images or RNNs for sequences) that work on
+data with a fixed, grid-like, or sequential structure, GNNs can handle
+data where elements have complex, non-Euclidean relationships.
+
+Traditional neural networks struggle with graph data because:
+\begin{enumerate}
+\item Irregular Structure: Graphs don't have a fixed size or a
+  consistent order of nodes/edges.
+\item Varying Connectivity: A node can have one connection or
+  hundreds, unlike a pixel that usually has 4 or 8 neighbors.
+\item Rich Relational Information: The relationships (edges)
+  themselves often carry important information.
+\end{enumerate}
+
+\section{Downstream training}
+Those performed only to finetune a pretrained model.
