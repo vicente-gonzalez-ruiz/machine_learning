@@ -27,6 +27,24 @@ where $p$ is 0 or 1, and $p$ is the probability of the prediction for label 1.
 
 In classification tasks we usually try to minimize the cross-entropy.
 
+\section{True Positives (TP)}
+The model predicted a label and matches correctly as per ground truth.
+
+\section{True Negatives (TN)}
+The model does not predict the label and is not a part of the ground truth.
+
+\section{False Positives (FP)}
+The model predicted a label, but it is not a part of the ground truth (Type I Error).
+
+\section{False Negatives (FN)}
+The model does not predict a label, but it is part of the ground truth. (Type II Error).
+
+\section{Intersection over Union (IoU)}
+Intersection over Union indicates the overlap of the predicted
+bounding box coordinates to the ground truth box. Higher IoU indicates
+the predicted bounding box coordinates closely resembles the ground
+truth box coordinates.
+
 \section{Accuracy (Acc)}
 The evaluation metric Accuracy (Acc, \emph{exactitud} in Spanish) evaluates the performance of a
 classification model. Specifically, it measures the probability the model
@@ -51,6 +69,9 @@ of false negatives.
 \begin{equation}
   \text{R} = \frac{\text{TP}}{\text{TP} + \text{FN}}
 \end{equation}
+Recall is a measure of "has your model predicted every time that it
+should have predicted?" It indicates any predictions that it should
+not have missed if the model is missing.
 
 \section{Sensitivity (Se), recall or TPR}
 Sensitivity, also known as the True Positive Rate (TPR) and as recall,
@@ -73,7 +94,30 @@ This classification metric (\emph{precisión} in Spanish) measures the proportio
 \begin{equation}
   \text{Pr} = \frac{\text{TP}}{\text{TP} + \text{FP}}.
 \end{equation}
-In other words, of all the times the model said "yes," how many times was it right?
+Precision is a measure of when your model predicts how often does it
+predicts correctly?" It indicates how much we can rely on the model's
+positive predictions.  In other words, of all the times the model said
+"yes," how many times was it right?
+
+\section{Precision-recall curve}
+The precision-recall curve is obtained by plotting the model's
+precision and recall values as a function of the model's confidence
+score threshold.
+
+“When a model has high recall but low precision, then the model
+classifies most of the positive samples correctly but it has many
+false positives(i.e. classifies many Negative samples as Positive).“
+
+“When a model has high precision but low recall, then the model is
+accurate when it classifies a sample as Positive but it may classify
+only some of the positive samples.”
+
+The precision-recall curve encapsulates the tradeoff of both metrics
+and maximizes the effect of both metrics. It gives us a better idea of
+the overall accuracy of the model.
+
+\section{Average Precision (AP)}
+The AP is the area under the precision-recall curve.
 
 \section{F1-score}
 Classification metric that computes the harmonic mean of Pr and Se:
@@ -89,6 +133,12 @@ A table that summarizes the performance of a classification model by showing
   Actual Positive & TP & FN \\
   Actual Negative & FP & TN
 \end{table}
+
+\section{mAP (mean Average Precission)}
+Mean Average Precision (mAP) is commonly used to analyze the
+performance of object detection and segmentation systems. It is
+calculated by finding AP for each class and then average over a number
+of classes.
 
 \section{}
 curva precisión-recuperación
